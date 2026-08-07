@@ -1,5 +1,7 @@
 # Word Clock Tutorial — Learn the Hardware, Step by Step
 
+*The blueprint behind ESP32-S3 Blueprints No.01.*
+
 A beginner-friendly path through the Lonely Binary ESP32-S3 word clock hardware: one small concept per lesson, each in its own folder with a full sketch/script and a line-by-line explanation. By the end you'll understand the panel well enough to build your own display logic, not just this one — the [root README](../README.md) describes four other panel concepts (Weather Station, Status Board, Couple Message Board, Crypto/DevOps Word Clock) that all run on this exact same hardware.
 
 If you just want the finished, full-featured clock, skip straight to [`WordClock/`](../WordClock/README.md). This series is for understanding *how* it's built.
