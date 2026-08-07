@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lonely Binary Word Clock — Firmware Installer</title>
+<script type="module" src="https://unpkg.com/esp-web-tools@10.4.0/dist/web/install-button.js?module"></script>
+<style>
+  :root {
+    --bg: #0e0f13; --fg: #e9eaee; --muted: #9aa0ac; --line: #23262e;
+    --card: #15171d; --accent: #4da3ff; --warn: #ffb020; --ok: #3ddc84;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0 1.25rem 4rem;
+    background: var(--bg); color: var(--fg);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+  header { padding: 3rem 0 1.5rem; border-bottom: 1px solid var(--line); }
+  .brand { font-size: .82rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  h1 { margin: .4rem 0 .5rem; font-size: 2rem; line-height: 1.2; }
+  .sub { color: var(--muted); margin: 0; }
+  h2 { margin: 2.5rem 0 .75rem; font-size: 1.15rem; }
+  .callout {
+    border: 1px solid var(--line); border-left: 3px solid var(--warn);
+    background: var(--card); border-radius: 8px; padding: .9rem 1.1rem; margin: 1.5rem 0;
+  }
+  .callout.info { border-left-color: var(--accent); }
+  .callout strong { color: var(--fg); }
+  ol { padding-left: 1.25rem; }
+  ol li { margin: .5rem 0; }
+  .panels { display: grid; gap: .9rem; grid-template-columns: 1fr; margin-top: 1rem; }
+  @media (min-width: 620px) { .panels { grid-template-columns: 1fr 1fr; } }
+  .panel {
+    border: 1px solid var(--line); background: var(--card);
+    border-radius: 10px; padding: 1.1rem 1.2rem;
+  }
+  .panel.ready { border-color: #2f4a6d; }
+  .panel h3 { margin: 0 0 .3rem; font-size: 1.02rem; }
+  .panel p { margin: 0 0 .9rem; color: var(--muted); font-size: .9rem; }
+  .soon {
+    display: inline-block; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: .2rem .6rem;
+  }
+  .panel.dim { opacity: .55; }
+  esp-web-install-button { --esp-tools-button-color: #fff; --esp-tools-button-text-color: #0e0f13; }
+  .btn {
+    display: inline-block; background: var(--accent); color: #08111d; font-weight: 600;
+    border: 0; border-radius: 7px; padding: .6rem 1.1rem; cursor: pointer; font-size: .92rem;
+  }
+  .nosupport { color: var(--warn); font-size: .9rem; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  code { background: #1c1f27; padding: .12rem .4rem; border-radius: 4px; font-size: .88em; }
+  pre {
+    background: #1c1f27; border: 1px solid var(--line); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; font-size: .85rem;
+  }
+  table { border-collapse: collapse; width: 100%; margin: .5rem 0 0; font-size: .92rem; }
+  th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; }
+  footer { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">Lonely Binary</div>
+    <h1>Word Clock — Firmware Installer</h1>
+    <p class="sub">Install firmware straight from this page. No app, no drivers, no Arduino IDE.</p>
+    <p class="sub" style="font-size:.85rem;margin-top:.4rem;">
+      Firmware version <span id="fwver">…</span>
+    </p>
+  </header>
+
+  <script>
+    // Read the version from the manifest the installer already uses, rather
+    // than hardcoding it here — CI rewrites that file on release, so this can
+    // never drift out of date.
+    fetch('firmware/wordclock/manifest.json')
+      .then(r => r.json())
+      .then(m => { document.getElementById('fwver').textContent = m.version; })
+      .catch(() => { document.getElementById('fwver').textContent = 'unknown'; });
+  </script>
+
+  <div class="callout">
+    <strong>Use Chrome or Edge on a computer.</strong> Installing from the browser needs Web Serial,
+    which Safari and Firefox don't support, and phones/tablets can't do it at all.
+    If you'd rather not switch browsers, see <a href="#manual">manual install</a> at the bottom.
+  </div>
+
+  <h2>Before you start</h2>
+  <div class="callout info">
+    <strong>Plug the USB-C cable into the ESP32-S3 board itself — not the base.</strong>
+    The base's port only supplies power; the board's own port is the one that talks to your computer.
+    After installing, power the unit from the <em>base</em> port so the LED grid lights up
+    (the board's USB port can't supply enough current for the whole panel — that's expected, not a fault).
+  </div>
+
+  <h2>Install</h2>
+  <ol>
+    <li>Connect the ESP32-S3 board to your computer with a USB-C <strong>data</strong> cable
+        (charge-only cables won't work).</li>
+    <li>Pick your panel below and press <strong>Install</strong>.</li>
+    <li>Choose the serial port in the browser dialog and confirm.</li>
+    <li>Wait for it to finish, then power the unit from the base and follow the on-screen setup.</li>
+  </ol>
+
+  <div class="panels">
+
+    <div class="panel ready">
+      <h3>🕑 Word Clock</h3>
+      <p>Tells the time in English words, with colour modes, light effects, worldwide timezones and wireless updates.</p>
+      <esp-web-install-button manifest="firmware/wordclock/manifest.json" erase-first>
+        <button slot="activate" class="btn">Install Word Clock</button>
+        <span slot="unsupported" class="nosupport">Your browser can't do this — please use Chrome or Edge.</span>
+        <span slot="not-allowed" class="nosupport">This page must be opened over HTTPS.</span>
+      </esp-web-install-button>
+    </div>
+
+    <div class="panel dim">
+      <h3>🌤 Weather Station</h3>
+      <p>“IT IS [weather]”, with a feels-like line and a time-of-day modifier.</p>
+      <span class="soon">Coming soon</span>
+    </div>
+
+    <div class="panel dim">
+      <h3>💼 Status Board</h3>
+      <p>Busy, free, in a meeting or on a call — plus a do-not-disturb level and a return-time hint.</p>
+      <span class="soon">Coming soon</span>
+    </div>
+
+    <div class="panel dim">
+      <h3>💌 Couple Message Board</h3>
+      <p>Two-way message board for couples apart during the day, with quick replies.</p>
+      <span class="soon">Coming soon</span>
+    </div>
+
+    <div class="panel dim">
+      <h3>🚀 Crypto Word Clock</h3>
+      <p>Your portfolio's mood spelled out in real time, plus friend-to-friend triggers.</p>
+      <span class="soon">Coming soon</span>
+    </div>
+
+    <div class="panel dim">
+      <h3>🖥 DevOps Word Clock</h3>
+      <p>CI/CD results and server health — deploys, rollbacks, uptime and resource alerts.</p>
+      <span class="soon">Coming soon</span>
+    </div>
+
+  </div>
+
+  <h2>What happens on first boot</h2>
+  <p>Installing erases the board completely, so the clock starts as a factory-fresh unit:</p>
+  <table>
+    <tr><th>You'll see</th><th>Meaning</th></tr>
+    <tr><td>Red → green → blue, 1s each</td><td>Self-test, so you can check every LED works</td></tr>
+    <tr><td>Scattered confetti sparkles</td><td>Waiting for setup — join the <code>WordClock-XXXX</code> WiFi network from your phone</td></tr>
+    <tr><td>Blue snake crawling</td><td>Joining your WiFi</td></tr>
+    <tr><td>Red snake crawling</td><td>Connected, syncing the time</td></tr>
+    <tr><td>Words light up</td><td>Done — it's telling the time</td></tr>
+  </table>
+  <p style="color:var(--muted);font-size:.92rem;margin-top:.9rem;">
+    To reconfigure later (new WiFi, new timezone), hold <strong>both buttons for 3 seconds</strong> —
+    the panel flashes white and returns to setup.
+  </p>
+
+  <h2 id="manual">Manual install (Safari, Firefox, or scripted)</h2>
+  <p>Download <a href="firmware/wordclock/wordclock.bin">wordclock.bin</a>, then with
+     <a href="https://pypi.org/project/esptool/">esptool</a> installed (<code>pip install esptool</code>):</p>
+  <pre>esptool --chip esp32s3 --port &lt;YOUR_PORT&gt; erase-flash
+esptool --chip esp32s3 --port &lt;YOUR_PORT&gt; write-flash 0x0 wordclock.bin</pre>
+  <p style="color:var(--muted);font-size:.92rem;">
+    Port looks like <code>/dev/cu.usbmodem101</code> on macOS or <code>COM5</code> on Windows.
+    The image is a full-flash image, so it starts at offset <code>0x0</code>.
+  </p>
+
+  <h2>If it doesn't work</h2>
+  <table>
+    <tr><th>Problem</th><th>Fix</th></tr>
+    <tr><td>No ports in the dialog</td><td>Use a data cable, not charge-only. Try the other USB-C port on the board's side, and close the Arduino IDE / any serial monitor holding the port.</td></tr>
+    <tr><td>“Failed to initialize”</td><td>Unplug, hold the <strong>BOOT</strong> button, plug back in, release, then retry.</td></tr>
+    <tr><td>Installed, but the panel stays dark</td><td>Power it from the <strong>base's</strong> USB-C port — the board's own port can't drive the LEDs.</td></tr>
+  </table>
+
+  <footer>
+    Thank you for supporting <strong>Lonely Binary</strong> — this firmware exists because of buyers like you.<br>
+    Source, tutorials and the full documentation live on
+    <a href="https://github.com/Lonely-Binary/WordClock">GitHub</a>.
+  </footer>
+
+</div>
+</body>
+</html>
