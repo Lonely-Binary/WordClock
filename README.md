@@ -1,4 +1,6 @@
-# Lonely Binary Word Clock
+# Word Clock — ESP32-S3 Blueprints No.01
+
+> Part of **[ESP32-S3 Blueprints](#about-esp32-s3-blueprints)**, a Lonely Binary series: finished things you'd actually want on your desk, each shipped with the complete blueprint behind it.
 
 **A word that lights up — instead of a number.**
 
@@ -85,6 +87,25 @@ The Word Clock panel is the first of the five to ship. It's built with the [Ardu
 - **[`Tutorial/`](Tutorial/)** — a step-by-step, beginner-friendly series (one lesson per folder) that builds up from lighting a single LED to a working word clock, in both **Arduino/C++** and **MicroPython**, so you can design your own panels on this same hardware.
 - **[`docs/`](docs/)** — the browser-based firmware installer published to GitHub Pages, plus the prebuilt image it serves.
 - **[`tools/`](tools/)** — `build-firmware.sh`, which produces that image. CI runs it automatically on every tagged release.
+
+---
+
+## About ESP32-S3 Blueprints
+
+Most beginner electronics kits hand you a bag of sensors and leave you to invent a reason to use them. That's the wrong way round: the hard part for a beginner was never *how*, it was *what for*. A pile of assorted Lego bricks is intimidating; a Lego set is not — and you still walk away knowing techniques you can reuse on anything.
+
+**ESP32-S3 Blueprints** works the same way. Every entry in the series is:
+
+- **A finished object you'd actually want.** Not a demo, not a breadboard — something that earns its place on your desk.
+- **Built on the ESP32-S3**, so the skills compound instead of resetting each time.
+- **Shipped with the whole blueprint.** Full source, and a lesson-by-lesson tutorial that takes you from lighting a single LED to the finished firmware — in both Arduino/C++ and MicroPython.
+
+The thing you buy is the reason to start. What you keep is knowing how to build the next one yourself.
+
+| No. | Blueprint | Status |
+|---|---|---|
+| **01** | **Word Clock** — tells the time in English words | ✅ This repo |
+| 02 | — | In development |
 
 ---
 

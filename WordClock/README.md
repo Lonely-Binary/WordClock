@@ -1,5 +1,7 @@
 # WordClock Firmware
 
+*ESP32-S3 Blueprints No.01 — Word Clock*
+
 The finished "tells the time in English sentences" panel — `IT IS <hour> PAST/TO <hour>` style, QLOCKTWO-inspired, running on the Lonely Binary ESP32-S3 word clock hardware.
 
 This is the exact firmware flashed onto every unit before it ships, so it doesn't hardcode any one buyer's WiFi network or timezone — instead it walks you through a one-time setup the first time it boots.
