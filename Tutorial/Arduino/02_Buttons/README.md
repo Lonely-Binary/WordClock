@@ -1,4 +1,4 @@
-# Lesson 4 — Buttons
+# Lesson 2 — Buttons
 
 **Goal:** read the onboard COLOR button and use it to cycle the panel's colour, instead of a fixed timer.
 
@@ -10,7 +10,7 @@
 
 ## The code
 
-See [`04_Buttons.ino`](04_Buttons.ino).
+See [`02_Buttons.ino`](02_Buttons.ino).
 
 ```cpp
 bool pressedEdge(uint8_t pin, bool &prev, uint32_t &tLast) {
@@ -44,7 +44,7 @@ The panel starts white. Each time you press the COLOR button (GPIO 42), the whol
 
 ## Next
 
-[Lesson 5 — WiFi Connect](../05_WiFiConnect/README.md): get the board online, which is the last piece needed before the panel can tell real time.
+[Lesson 3 — Full Word Clock](../03_FullWordClock/README.md): the capstone — put the grid, the time and the words together.
 
 ---
 

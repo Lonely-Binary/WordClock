@@ -1,4 +1,4 @@
-# Lesson 2 — Light a Word (MicroPython)
+# Lesson 1 — Light a Word (MicroPython)
 
 **Goal:** stop thinking in raw LED indices and start thinking in the panel's real shape: an 11×10 grid of letters, where every word is a horizontal run of letters on some row. Light up "IT IS" in the top-left corner.
 
@@ -46,7 +46,7 @@ Using the layout map in the header comment of [`WordClock/WordClock.ino`](../../
 
 ## Next
 
-[Lesson 3 — Colors and Grid](../03_ColorsAndGrid/README.md): light up the *entire* grid and start playing with colour.
+[Lesson 2 — Buttons](../02_Buttons/README.md): make the two buttons on the panel do something.
 
 ---
 

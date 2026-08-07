@@ -1,48 +1,53 @@
-# Word Clock Tutorial — Learn the Hardware, Step by Step
+# Word Clock Tutorial — Build It Yourself
 
 *The blueprint behind ESP32-S3 Blueprints No.01.*
 
-A beginner-friendly path through the Lonely Binary ESP32-S3 word clock hardware: one small concept per lesson, each in its own folder with a full sketch/script and a line-by-line explanation. By the end you'll understand the panel well enough to build your own display logic, not just this one — the [root README](../README.md) describes four other panel concepts (Weather Station, Status Board, Couple Message Board, Crypto/DevOps Word Clock) that all run on this exact same hardware.
+How this panel actually works, one small piece at a time — so that by the end you could design your own face for the same hardware, not just reflash ours.
 
-If you just want the finished, full-featured clock, skip straight to [`WordClock/`](../WordClock/README.md). This series is for understanding *how* it's built.
+If you only want the finished clock installed, you don't need any of this: use the [web installer](https://lonely-binary.github.io/WordClock/).
 
-## Pick your language
+## Start with the foundations
 
-| Track | Best for |
+The ESP32-S3 groundwork — uploading code, driving LEDs, WiFi, NTP — isn't repeated here. It's shared by every Blueprint in the series and lives in its own repo, so learning it once carries over to everything else we make:
+
+| | For |
 |---|---|
-| **[Arduino/C++](Arduino/README.md)** | Arduino IDE users, and anyone who wants the same language as the full [`WordClock/`](../WordClock/README.md) firmware |
-| **[MicroPython](MicroPython/README.md)** | Readers who'd rather write Python, or are already comfortable with MicroPython on other boards |
+| **[ESP32-Arduino-Tutorials](https://github.com/Lonely-Binary/ESP32-Arduino-Tutorials)** | Arduino IDE / C++ |
+| **[ESP32-MicroPython-Tutorials](https://github.com/Lonely-Binary/ESP32-MicroPython-Tutorials)** | Python |
 
-Both tracks teach the exact same 7 core concepts, in the exact same order, on the exact same hardware — pick whichever language you'd rather learn in. (The MicroPython track's capstone lesson stops at the simple "just tells time" sketch; the button-driven colour modes and light effects in the full firmware are Arduino/C++ only.) The Arduino/C++ track also has a bonus 8th lesson on OTA (wireless) updates, not present in the MicroPython track.
+Four lessons from either (about 45 minutes) and you're ready: *hello-world → colour-and-brightness → station-mode → ntp-and-timezones*.
 
-## Hardware recap (applies to both tracks)
+Already know that material? Go straight to the lessons below.
 
-- **GPIO 8** — WS2812 data line for the whole panel (110 letter LEDs + 4 corner "minute" dot LEDs = 114 total).
-- **GPIO 42** — COLOR button (active-high).
-- **GPIO 41** — EFFECT button (active-high).
-- **Two Type-C ports, two different jobs**: the port on the **dev board itself** is for flashing firmware/scripts only. The port on the **base** powers everything, including the LED grid — flash over the dev board's port, then power from the base's port to actually see LEDs light up. See the [root README](../README.md#️-power--flashing--please-read) for the full explanation; this trips up almost everyone on their first flash.
+## Then the Word Clock itself
 
-## The lessons
+Three lessons, in whichever language you started with:
 
-| # | Lesson | What you'll learn |
+| Track | |
+|---|---|
+| **[Arduino/C++](Arduino/README.md)** | Same language as the shipped firmware |
+| **[MicroPython](MicroPython/README.md)** | Quicker to experiment in |
+
+| # | Lesson | What it covers |
 |---|---|---|
-| 1 | Single Pixel | Light exactly one LED, confirm your hardware works |
-| 2 | Light a Word | Row/column grid mapping, lighting a whole word |
-| 3 | Colors and Grid | Fill the whole panel, colour modes, simple animation |
-| 4 | Buttons | Reading the onboard buttons, debouncing, edge detection |
-| 5 | WiFi Connect | Getting the board online in station mode |
-| 6 | NTP Time | Syncing real time over the internet |
-| 7 | Full Word Clock | Capstone — combine it all into the simplest program that tells time |
-| 8 | OTA Updates *(Arduino/C++ only, bonus)* | Upload new firmware over WiFi instead of USB |
+| 1 | Light a Word | The panel as an 11×10 grid, `XY()` mapping, lighting whole words |
+| 2 | Buttons | The two buttons, debouncing, edge detection |
+| 3 | Full Word Clock | Capstone — turning a time into an English sentence |
 
-Open the [Arduino/C++ track](Arduino/README.md) or the [MicroPython track](MicroPython/README.md) for the full write-up of each lesson.
+## Hardware recap
+
+- **GPIO 8** — data line for all 114 LEDs (110 letters + 4 corner minute dots)
+- **GPIO 42** — COLOR button · **GPIO 41** — EFFECT button (both active-high)
+- **Two Type-C ports, two jobs.** The dev board's port flashes; the **base's** port powers the LED grid. A dark panel when powered from the dev board is expected, not a fault — see the [root README](../README.md#️-power--flashing--please-read).
 
 ## After the tutorial
 
-Once you've built Lesson 7 in either track, you have everything you need to design your own panel — new vocabulary, new triggers, new data source — on the same 11×10 grid.
+Compare Lesson 3 with [`WordClock/WordClock.ino`](../WordClock/WordClock.ino) — the shipped firmware adds self-serve WiFi/timezone setup, colour modes, light effects, a factory self-test and OTA.
+
+The [root README](../README.md) also describes four other panel faces (Weather Station, Status Board, Couple Message Board, Crypto/DevOps) that run on this exact same hardware. Once you've done Lesson 3, building one of those is mostly a matter of new vocabulary and a new data source.
 
 ---
 
-Thank you for bringing a **Lonely Binary** word clock onto your desk. Every lesson in this series exists because of buyers like you — we hope it makes the hardware feel like yours, not just ours.
+Thank you for bringing a **Lonely Binary** word clock onto your desk. Every lesson here exists because of buyers like you — we hope it makes the hardware feel like yours, not just ours.
 
 **— Lonely Binary**

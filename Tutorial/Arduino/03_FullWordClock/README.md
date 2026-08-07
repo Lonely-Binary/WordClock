@@ -1,22 +1,22 @@
-# Lesson 7 — Full Word Clock (capstone)
+# Lesson 3 — Full Word Clock (capstone)
 
-**Goal:** wire everything from this series together into the smallest sketch that actually tells the time in words — no buttons, no colour cycling, no light effects. Just the grid rendering from Lesson 2, plus the WiFi + NTP time from Lessons 5–6, driving real "IT IS ... O'CLOCK"-style sentences.
+**Goal:** wire everything from this series together into the smallest sketch that actually tells the time in words — no buttons, no colour cycling, no light effects. Just the grid rendering from Lesson 1, plus the WiFi and NTP time you covered in the foundations, driving real "IT IS ... O'CLOCK"-style sentences.
 
 This is deliberately the *simple* end state. For the full-featured version with the COLOR/EFFECT buttons, rainbow mode, and animations, see [`WordClock/WordClock.ino`](../../../WordClock/WordClock.ino) at the repo root — everything in this lesson is a subset of it.
 
 ## What you'll learn
 
-- How the earlier lessons' pieces compose: grid/word rendering (Lesson 2) + WiFi (Lesson 5) + NTP time (Lesson 6) = a working clock
+- How the pieces compose: grid/word rendering (Lesson 1) + [WiFi](https://github.com/Lonely-Binary/ESP32-Arduino-Tutorials/tree/main/wifi/station-mode) + [NTP time](https://github.com/Lonely-Binary/ESP32-Arduino-Tutorials/tree/main/time/ntp-and-timezones) = a working clock
 - The 5-minute "bucket" logic that turns a `minute` value into words like "TEN PAST" or "A QUARTER TO"
 - Only redrawing the panel when the minute actually changes, instead of every loop
 
 ## Before you start
 
-Fill in your WiFi credentials and timezone, same as Lessons 5–6.
+Fill in your WiFi credentials and timezone, exactly as in [station-mode](https://github.com/Lonely-Binary/ESP32-Arduino-Tutorials/tree/main/wifi/station-mode) and [ntp-and-timezones](https://github.com/Lonely-Binary/ESP32-Arduino-Tutorials/tree/main/time/ntp-and-timezones).
 
 ## The code
 
-See [`07_FullWordClock.ino`](07_FullWordClock.ino). The two ideas worth walking through:
+See [`03_FullWordClock.ino`](03_FullWordClock.ino). The two ideas worth walking through:
 
 ### 1. Minute buckets
 
@@ -44,13 +44,13 @@ The panel connects to WiFi, syncs time, then displays the current time as a lit 
 
 ## Where to go from here
 
-- Add back the COLOR/EFFECT buttons from Lesson 4 — you already know the debounce pattern.
+- Add back the COLOR/EFFECT buttons from Lesson 2 — you already know the debounce pattern.
 - Compare your sketch line-by-line with [`WordClock/WordClock.ino`](../../../WordClock/WordClock.ino) to see exactly what the full firmware adds on top of this.
 - Try designing your own panel layout/vocabulary — the [root README](../../../README.md) describes four other panel concepts (Weather Station, Status Board, Couple Message Board, Crypto/DevOps Word Clock) built on this same hardware and grid-rendering approach.
 
 ## Next
 
-[Lesson 8 — OTA Updates](../08_OTAUpdates/README.md) (bonus): update the board wirelessly instead of over USB.
+Wireless updates now live in the shared foundations: [ota-updates](https://github.com/Lonely-Binary/ESP32-Arduino-Tutorials/tree/main/wifi/ota-updates).
 
 ---
 
