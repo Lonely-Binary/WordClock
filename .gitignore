@@ -17,3 +17,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.icloud
+
+# Private design assets — never publish
+/Internal/
