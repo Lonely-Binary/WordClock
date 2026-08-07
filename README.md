@@ -79,12 +79,19 @@ Plug the ESP32-S3 board into your computer with a USB-C data cable, open that pa
 The Word Clock panel is the first of the five to ship. It's built with the [Arduino ESP32 core](https://github.com/espressif/arduino-esp32) (board: `esp32:esp32:esp32s3`), [FastLED](https://github.com/FastLED/FastLED) for the WS2812 grid, and [WiFiManager](https://github.com/tzapu/WiFiManager) for the on-device Wi-Fi/timezone setup portal. `ArduinoOTA` and `Preferences` ship with the ESP32 core.
 
 - Want the finished, ready-to-flash sketch? See [`WordClock/`](WordClock/).
-- New to this hardware and want to learn it one small step at a time? Start with the [`Tutorial/`](Tutorial/) series.
+- New to this hardware? Start with the shared ESP32-S3 foundations, then the Word-Clock-specific [`Tutorial/`](Tutorial/):
+
+| Foundations — shared by every Blueprint | |
+|---|---|
+| **[ESP32-Arduino-Tutorials](https://github.com/Lonely-Binary/ESP32-Arduino-Tutorials)** | Arduino IDE / C++ |
+| **[ESP32-MicroPython-Tutorials](https://github.com/Lonely-Binary/ESP32-MicroPython-Tutorials)** | Python |
+
+Learning the ESP32-S3 once carries over to every Blueprint in the series, so those lessons live in their own repos rather than being repeated in each product.
 
 ## Repository
 
 - **[`WordClock/`](WordClock/)** — the finished Word Clock panel firmware: time-telling logic, self-serve Wi-Fi/timezone setup, colour modes, light effects and OTA.
-- **[`Tutorial/`](Tutorial/)** — a step-by-step, beginner-friendly series (one lesson per folder) that builds up from lighting a single LED to a working word clock, in both **Arduino/C++** and **MicroPython**, so you can design your own panels on this same hardware.
+- **[`Tutorial/`](Tutorial/)** — the Word-Clock-specific lessons: the 11×10 grid, the buttons, and the logic that turns a time into an English sentence. In both **Arduino/C++** and **MicroPython**.
 - **[`docs/`](docs/)** — the browser-based firmware installer published to GitHub Pages, plus the prebuilt image it serves.
 - **[`tools/`](tools/)** — `build-firmware.sh`, which produces that image. CI runs it automatically on every tagged release.
 

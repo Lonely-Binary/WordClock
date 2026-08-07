@@ -1,19 +1,19 @@
-# Lesson 7 — Full Word Clock (MicroPython capstone)
+# Lesson 3 — Full Word Clock (MicroPython capstone)
 
-**Goal:** wire everything from this MicroPython series together into the smallest script that actually tells the time in words — no buttons, no colour cycling, no light effects. Just the grid rendering from Lesson 2, plus the WiFi + NTP time from Lessons 5–6, driving real "IT IS ... O'CLOCK"-style sentences.
+**Goal:** wire everything from this MicroPython series together into the smallest script that actually tells the time in words — no buttons, no colour cycling, no light effects. Just the grid rendering from Lesson 1, plus the WiFi and NTP time you covered in the foundations, driving real "IT IS ... O'CLOCK"-style sentences.
 
-This is deliberately the *simple* end state, matching the Arduino/C++ track's [Lesson 7](../../Arduino/07_FullWordClock/README.md). The full-featured firmware with COLOR/EFFECT buttons, rainbow mode, and animations lives at [`WordClock/WordClock.ino`](../../../WordClock/WordClock.ino) — that one is Arduino/C++ only; this MicroPython track stops here.
+This is deliberately the *simple* end state, matching the Arduino/C++ track's [Lesson 3](../../Arduino/03_FullWordClock/README.md). The full-featured firmware with COLOR/EFFECT buttons, rainbow mode, and animations lives at [`WordClock/WordClock.ino`](../../../WordClock/WordClock.ino) — that one is Arduino/C++ only; this MicroPython track stops here.
 
 ## What you'll learn
 
-- How the earlier lessons' pieces compose: grid/word rendering (Lesson 2) + WiFi (Lesson 5) + NTP time (Lesson 6) = a working clock
+- How the pieces compose: grid/word rendering (Lesson 1) + [WiFi](https://github.com/Lonely-Binary/ESP32-MicroPython-Tutorials/tree/main/wifi/station-mode) + [NTP time](https://github.com/Lonely-Binary/ESP32-MicroPython-Tutorials/tree/main/time/ntp-and-timezones) = a working clock
 - The 5-minute "bucket" logic that turns a `minute` value into words like "TEN PAST" or "A QUARTER TO"
 - Only redrawing the panel when the minute actually changes, instead of every loop
 - `h12 = hour24 % 12 or 12` — a small Python idiom: since `0` is falsy in Python, `x or 12` gives you `x` unless it's `0`, in which case you get `12`. (The Arduino track needs an explicit `if (h12 == 0) h12 = 12;` for the same result.)
 
 ## Before you start
 
-Fill in your WiFi credentials and `UTC_OFFSET_SEC`, same as Lessons 5–6.
+Fill in your WiFi credentials and `UTC_OFFSET_SEC`, exactly as in [station-mode](https://github.com/Lonely-Binary/ESP32-MicroPython-Tutorials/tree/main/wifi/station-mode) and [ntp-and-timezones](https://github.com/Lonely-Binary/ESP32-MicroPython-Tutorials/tree/main/time/ntp-and-timezones).
 
 ## The code
 
@@ -44,9 +44,9 @@ The panel connects to WiFi, syncs time, then displays the current time as a lit 
 
 ## Where to go from here
 
-- Add back the COLOR/EFFECT buttons from Lesson 4 — you already know the debounce pattern.
+- Add back the COLOR/EFFECT buttons from Lesson 2 — you already know the debounce pattern.
 - Add automatic US daylight-saving switching to `UTC_OFFSET_SEC` — a good exercise now that you understand `local_time()`.
-- Compare this script with the [Arduino/C++ version](../../Arduino/07_FullWordClock/07_FullWordClock.ino) — same logic, two different languages.
+- Compare this script with the [Arduino/C++ version](../../Arduino/03_FullWordClock/03_FullWordClock.ino) — same logic, two different languages.
 - Try designing your own panel layout/vocabulary — the [root README](../../../README.md) describes four other panel concepts (Weather Station, Status Board, Couple Message Board, Crypto/DevOps Word Clock) built on this same hardware and grid-rendering approach.
 
 ---

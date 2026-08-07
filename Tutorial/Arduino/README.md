@@ -1,41 +1,53 @@
 # Word Clock Tutorial — Arduino/C++ Track
 
-A beginner-friendly path through the Lonely Binary ESP32-S3 word clock hardware, written in Arduino/C++ with [FastLED](https://github.com/FastLED/FastLED). One small concept per lesson, each in its own folder with a full sketch and a line-by-line explanation.
+*The blueprint behind ESP32-S3 Blueprints No.01.*
 
-Prefer Python? See the [MicroPython track](../MicroPython/README.md) instead — same 7 lessons, same hardware, different language.
+Three lessons covering what's specific to **this** panel: its 11×10 letter grid, its two buttons, and the logic that turns a time into an English sentence.
+
+Prefer Python? See the [MicroPython track](../MicroPython/README.md).
+
+## Do this first
+
+These lessons assume you can already get an ESP32-S3 online and telling the time. That groundwork isn't repeated here — it lives in **[ESP32-Arduino-Tutorials](https://github.com/Lonely-Binary/ESP32-Arduino-Tutorials)**, shared by every Blueprint in the series.
+
+Work through these four (about 45 minutes), then come back:
+
+| | Lesson | Why you need it |
+|---|---|---|
+| 1 | [hello-world](https://github.com/Lonely-Binary/ESP32-Arduino-Tutorials/tree/main/getting-started/hello-world) | Uploading, Serial, and the USB CDC setting that otherwise leaves your Serial Monitor blank |
+| 2 | [colour-and-brightness](https://github.com/Lonely-Binary/ESP32-Arduino-Tutorials/tree/main/leds/colour-and-brightness) | FastLED, `CRGB` vs `CHSV` — the panel is 114 of these |
+| 3 | [station-mode](https://github.com/Lonely-Binary/ESP32-Arduino-Tutorials/tree/main/wifi/station-mode) | Getting on WiFi |
+| 4 | [ntp-and-timezones](https://github.com/Lonely-Binary/ESP32-Arduino-Tutorials/tree/main/time/ntp-and-timezones) | Real local time — a clock is not much use without it |
+
+Already comfortable with those? Skip straight to Lesson 1 below.
 
 ## Prerequisites
 
-- **Arduino IDE** with the ESP32 board package installed (Boards Manager → search "esp32", install the Espressif package).
-- Board selection: **ESP32S3 Dev Module** (`esp32:esp32:esp32s3`).
-- **[FastLED](https://github.com/FastLED/FastLED) 3.6.0+** installed via Library Manager — older versions lack solid ESP32-S3 support.
-- The word clock hardware: 11×10 WS2812 letter grid + base, snapped onto the Lonely Binary ESP32-S3 dev board.
+- **Arduino IDE** with the ESP32 board package, board set to **ESP32S3 Dev Module**
+- **Tools → USB CDC On Boot → Enabled** (or the Serial Monitor stays blank)
+- **[FastLED](https://github.com/FastLED/FastLED) 3.6.0+**
+- Your assembled Word Clock: the 11×10 WS2812 grid on its base
 
 ## Hardware recap
 
-- **GPIO 8** — WS2812 data line for the whole panel (110 letter LEDs + 4 corner "minute" dot LEDs = 114 total).
-- **GPIO 42** — COLOR button (active-high).
-- **GPIO 41** — EFFECT button (active-high).
-- **Two Type-C ports, two different jobs**: the port on the **dev board itself** is for flashing firmware only. The port on the **base** powers everything, including the LED grid — flash over the dev board's port, then power from the base's port to actually see LEDs light up. See the [root README](../../README.md#️-power--flashing--please-read) for the full explanation; this trips up almost everyone on their first flash.
+- **GPIO 8** — data line for the whole panel: 110 letter LEDs + 4 corner "minute" dots = 114
+- **GPIO 42** — COLOR button (active-high)
+- **GPIO 41** — EFFECT button (active-high)
+- **Two Type-C ports, two jobs.** The dev board's port flashes; the **base's** port powers the LED grid. A dark panel when powered from the dev board is expected — see the [root README](../../README.md#️-power--flashing--please-read).
 
 ## Lessons
 
 | # | Lesson | What you'll learn |
 |---|---|---|
-| 1 | [Single Pixel](01_SinglePixel/README.md) | FastLED basics — light exactly one LED, confirm your hardware works |
-| 2 | [Light a Word](02_LightAWord/README.md) | Row/column grid mapping, lighting a whole word |
-| 3 | [Colors and Grid](03_ColorsAndGrid/README.md) | Fill the whole panel, `CRGB` vs `CHSV`, simple animation with `loop()` |
-| 4 | [Buttons](04_Buttons/README.md) | Reading the onboard buttons, debouncing, edge detection |
-| 5 | [WiFi Connect](05_WiFiConnect/README.md) | Getting the board online in station mode |
-| 6 | [NTP Time](06_NTPTime/README.md) | Syncing real time over the internet |
-| 7 | [Full Word Clock](07_FullWordClock/README.md) | Capstone — combine it all into the simplest sketch that tells time |
-| 8 | [OTA Updates](08_OTAUpdates/README.md) *(bonus)* | Upload new firmware over WiFi instead of USB |
-
-Work through 1–7 in order — each one builds on ideas from the last. Lesson 8 is a standalone bonus once you're comfortable with WiFi (Lesson 5).
+| 1 | [Light a Word](01_LightAWord/README.md) | The panel as an 11×10 grid, `XY()` mapping, lighting whole words |
+| 2 | [Buttons](02_Buttons/README.md) | Reading the two buttons, debouncing, edge detection |
+| 3 | [Full Word Clock](03_FullWordClock/README.md) | Capstone — the 5-minute bucket logic that turns a time into a sentence |
 
 ## After the tutorial
 
-Once you've built Lesson 7, compare it against [`WordClock/WordClock.ino`](../../WordClock/WordClock.ino) to see what the full firmware adds (button-driven colour modes, random light effects, self-serve WiFi/timezone setup, OTA). From there, you have everything you need to design your own panel — new vocabulary, new triggers, new data source — on the same 11×10 grid.
+Compare your Lesson 3 with [`WordClock/WordClock.ino`](../../WordClock/WordClock.ino) to see what the shipped firmware adds: self-serve WiFi/timezone setup, colour modes, light effects, a factory self-test and OTA.
+
+From there you have everything you need to design your own panel — new vocabulary, new triggers, new data source — on the same 11×10 grid.
 
 ---
 

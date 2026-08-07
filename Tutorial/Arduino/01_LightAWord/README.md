@@ -1,4 +1,4 @@
-# Lesson 2 — Light a Word
+# Lesson 1 — Light a Word
 
 **Goal:** stop thinking in raw LED indices and start thinking in the panel's real shape: an 11×10 grid of letters, where every word is a horizontal run of letters on some row. Light up "IT IS" in the top-left corner.
 
@@ -19,7 +19,7 @@ Row 0 holds the letters for "IT", "IS", and "AM"/"PM". The wiring runs left to r
 
 ## The code
 
-See [`02_LightAWord.ino`](02_LightAWord.ino).
+See [`01_LightAWord.ino`](01_LightAWord.ino).
 
 ```cpp
 uint16_t XY(uint8_t row, uint8_t col) {
@@ -49,7 +49,7 @@ Using the layout map in the header comment of [`WordClock/WordClock.ino`](../../
 
 ## Next
 
-[Lesson 3 — Colors and Grid](../03_ColorsAndGrid/README.md): light up the *entire* grid and start playing with colour.
+[Lesson 2 — Buttons](../02_Buttons/README.md): make the two buttons on the panel do something.
 
 ---
 
