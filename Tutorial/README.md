@@ -44,7 +44,7 @@ Three lessons, in whichever language you started with:
 
 Compare Lesson 3 with [`WordClock/WordClock.ino`](../WordClock/WordClock.ino) — the shipped firmware adds self-serve WiFi/timezone setup, colour modes, light effects, a factory self-test and OTA.
 
-The [root README](../README.md) also describes four other panel faces (Weather Station, Status Board, Couple Message Board, Crypto/DevOps) that run on this exact same hardware. Once you've done Lesson 3, building one of those is mostly a matter of new vocabulary and a new data source.
+The [root README](../README.md) also describes five other panels (Weather Station, Status Board, Couple Message Board, Crypto Word Clock, DevOps Word Clock) that run on this exact same hardware. Their finished firmware is in the repo too. Once you've done Lesson 3, reading one of those is mostly a matter of new vocabulary and a new data source.
 
 ---
 

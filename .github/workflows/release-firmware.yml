@@ -52,6 +52,8 @@ jobs:
           arduino-cli core install esp32:esp32@3.3.10
           arduino-cli lib install FastLED@3.10.3
           arduino-cli lib install WiFiManager@2.0.17
+          arduino-cli lib install PubSubClient@2.8
+          arduino-cli lib install ArduinoJson@7.4.3
 
       - name: Build firmware image
         run: |
@@ -92,10 +94,17 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: docs/firmware/wordclock/wordclock.bin
+          files: |
+            docs/firmware/wordclock/wordclock.bin
+            docs/firmware/weather/weather.bin
+            docs/firmware/status/status.bin
+            docs/firmware/couple/couple.bin
+            docs/firmware/crypto/crypto.bin
+            docs/firmware/devops/devops.bin
           body: |
-            Flash this with the [web installer](https://lonely-binary.github.io/WordClock/) —
+            Flash these with the [web installer](https://lonely-binary.github.io/WordClock/) —
             no tools needed, just Chrome or Edge.
 
-            `wordclock.bin` is a full-flash image: write it to offset `0x0`.
+            One image per panel (`wordclock.bin`, `weather.bin`, `status.bin`, `couple.bin`,
+            `crypto.bin`, `devops.bin`). Each is a full-flash image: write it to offset `0x0`.
           generate_release_notes: true
