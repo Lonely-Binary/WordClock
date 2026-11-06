@@ -46,7 +46,7 @@ The panel connects to WiFi, syncs time, then displays the current time as a lit 
 
 - Add back the COLOR/EFFECT buttons from Lesson 2 — you already know the debounce pattern.
 - Compare your sketch line-by-line with [`WordClock/WordClock.ino`](../../../WordClock/WordClock.ino) to see exactly what the full firmware adds on top of this.
-- Try designing your own panel layout/vocabulary — the [root README](../../../README.md) describes four other panel concepts (Weather Station, Status Board, Couple Message Board, Crypto/DevOps Word Clock) built on this same hardware and grid-rendering approach.
+- Try designing your own panel layout/vocabulary — the [root README](../../../README.md) describes five other panels (Weather Station, Status Board, Couple Message Board, Crypto and DevOps Word Clock) built on this same hardware and grid-rendering approach, and their finished sketches sit next to `WordClock/`.
 
 ## Next
 

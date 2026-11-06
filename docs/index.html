@@ -40,11 +40,6 @@
   .panel.ready { border-color: #2f4a6d; }
   .panel h3 { margin: 0 0 .3rem; font-size: 1.02rem; }
   .panel p { margin: 0 0 .9rem; color: var(--muted); font-size: .9rem; }
-  .soon {
-    display: inline-block; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
-    color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: .2rem .6rem;
-  }
-  .panel.dim { opacity: .55; }
   esp-web-install-button { --esp-tools-button-color: #fff; --esp-tools-button-text-color: #0e0f13; }
   .btn {
     display: inline-block; background: var(--accent); color: #08111d; font-weight: 600;
@@ -121,58 +116,102 @@
       </esp-web-install-button>
     </div>
 
-    <div class="panel dim">
+    <div class="panel ready">
       <h3>🌤 Weather Station</h3>
-      <p>“IT IS [weather]”, with a feels-like line and a time-of-day modifier.</p>
-      <span class="soon">Coming soon</span>
+      <p>“IT IS [weather]”, with a feels-like line and a time-of-day modifier. Type your city during setup.</p>
+      <esp-web-install-button manifest="firmware/weather/manifest.json" erase-first>
+        <button slot="activate" class="btn">Install Weather Station</button>
+        <span slot="unsupported" class="nosupport">Your browser can't do this — please use Chrome or Edge.</span>
+        <span slot="not-allowed" class="nosupport">This page must be opened over HTTPS.</span>
+      </esp-web-install-button>
     </div>
 
-    <div class="panel dim">
+    <div class="panel ready">
       <h3>💼 Status Board</h3>
-      <p>Busy, free, in a meeting or on a call — plus a do-not-disturb level and a return-time hint.</p>
-      <span class="soon">Coming soon</span>
+      <p>Busy, free, in a meeting or on a call — plus a do-not-disturb level and a return-time hint. Set it from your phone.</p>
+      <esp-web-install-button manifest="firmware/status/manifest.json" erase-first>
+        <button slot="activate" class="btn">Install Status Board</button>
+        <span slot="unsupported" class="nosupport">Your browser can't do this — please use Chrome or Edge.</span>
+        <span slot="not-allowed" class="nosupport">This page must be opened over HTTPS.</span>
+      </esp-web-install-button>
     </div>
 
-    <div class="panel dim">
+    <div class="panel ready">
       <h3>💌 Couple Message Board</h3>
-      <p>Two-way message board for couples apart during the day, with quick replies.</p>
-      <span class="soon">Coming soon</span>
+      <p>Two-way message board for couples apart during the day, with quick replies. Install it on both panels.</p>
+      <esp-web-install-button manifest="firmware/couple/manifest.json" erase-first>
+        <button slot="activate" class="btn">Install Couple Message Board</button>
+        <span slot="unsupported" class="nosupport">Your browser can't do this — please use Chrome or Edge.</span>
+        <span slot="not-allowed" class="nosupport">This page must be opened over HTTPS.</span>
+      </esp-web-install-button>
     </div>
 
-    <div class="panel dim">
+    <div class="panel ready">
       <h3>🚀 Crypto Word Clock</h3>
       <p>Your portfolio's mood spelled out in real time, plus friend-to-friend triggers.</p>
-      <span class="soon">Coming soon</span>
+      <esp-web-install-button manifest="firmware/crypto/manifest.json" erase-first>
+        <button slot="activate" class="btn">Install Crypto Word Clock</button>
+        <span slot="unsupported" class="nosupport">Your browser can't do this — please use Chrome or Edge.</span>
+        <span slot="not-allowed" class="nosupport">This page must be opened over HTTPS.</span>
+      </esp-web-install-button>
     </div>
 
-    <div class="panel dim">
+    <div class="panel ready">
       <h3>🖥 DevOps Word Clock</h3>
       <p>CI/CD results and server health — deploys, rollbacks, uptime and resource alerts.</p>
-      <span class="soon">Coming soon</span>
+      <esp-web-install-button manifest="firmware/devops/manifest.json" erase-first>
+        <button slot="activate" class="btn">Install DevOps Word Clock</button>
+        <span slot="unsupported" class="nosupport">Your browser can't do this — please use Chrome or Edge.</span>
+        <span slot="not-allowed" class="nosupport">This page must be opened over HTTPS.</span>
+      </esp-web-install-button>
     </div>
 
   </div>
 
   <h2>What happens on first boot</h2>
-  <p>Installing erases the board completely, so the clock starts as a factory-fresh unit:</p>
+  <p>Installing erases the board completely, so the panel starts as a factory-fresh unit:</p>
   <table>
     <tr><th>You'll see</th><th>Meaning</th></tr>
-    <tr><td>Red → green → blue, 1s each</td><td>Self-test, so you can check every LED works</td></tr>
-    <tr><td>Scattered confetti sparkles</td><td>Waiting for setup — join the <code>WordClock-XXXX</code> WiFi network from your phone</td></tr>
+    <tr><td>One LED at a time runs the whole panel in red, then green, then blue, each followed by the whole panel lit</td><td>Self-test, so you can check every LED switches on and off</td></tr>
+    <tr><td>Scattered confetti sparkles</td><td>Waiting for setup — join the panel's WiFi network from your phone (see below)</td></tr>
     <tr><td>Blue snake crawling</td><td>Joining your WiFi</td></tr>
-    <tr><td>Red snake crawling</td><td>Connected, syncing the time</td></tr>
-    <tr><td>Words light up</td><td>Done — it's telling the time</td></tr>
+    <tr><td>Red snake crawling</td><td>Word Clock only: connected, syncing the time</td></tr>
+    <tr><td>Words light up</td><td>Done</td></tr>
+  </table>
+
+  <h2>Setup network and control page</h2>
+  <p>Each panel opens its own setup network. After setup, the other five panels have a control page
+     on your home network. Open it from any phone or computer on the same WiFi:</p>
+  <table>
+    <tr><th>Panel</th><th>Setup network</th><th>Control page</th></tr>
+    <tr><td>Word Clock</td><td><code>WordClock-XXXX</code></td><td>—</td></tr>
+    <tr><td>Weather Station</td><td><code>Weather-XXXX</code></td><td><code>http://weather-xxxx.local</code></td></tr>
+    <tr><td>Status Board</td><td><code>StatusBoard-XXXX</code></td><td><code>http://statusboard-xxxx.local</code></td></tr>
+    <tr><td>Couple Message Board</td><td><code>CoupleBoard-XXXX</code></td><td><code>http://coupleboard-xxxx.local</code></td></tr>
+    <tr><td>Crypto Word Clock</td><td><code>CryptoClock-XXXX</code></td><td><code>http://cryptoclock-xxxx.local</code></td></tr>
+    <tr><td>DevOps Word Clock</td><td><code>DevOpsClock-XXXX</code></td><td><code>http://devopsclock-xxxx.local</code></td></tr>
   </table>
   <p style="color:var(--muted);font-size:.92rem;margin-top:.9rem;">
-    To reconfigure later (new WiFi, new timezone), hold <strong>both buttons for 3 seconds</strong> —
+    <code>XXXX</code> is the same four characters on the setup network and the control page.
+    Couple Message Board: both panels need the same pair code, which you'll find on the control page.
+    The Couple, Crypto and DevOps panels send messages through the public MQTT broker <code>broker.emqx.io</code>.
+  </p>
+  <p style="color:var(--muted);font-size:.92rem;margin-top:.9rem;">
+    To start over (new WiFi, new settings), hold <strong>both buttons for 3 seconds</strong> —
     the panel flashes white and returns to setup.
   </p>
 
   <h2 id="manual">Manual install (Safari, Firefox, or scripted)</h2>
-  <p>Download <a href="firmware/wordclock/wordclock.bin">wordclock.bin</a>, then with
+  <p>Download the image for your panel —
+     <a href="firmware/wordclock/wordclock.bin">wordclock.bin</a>,
+     <a href="firmware/weather/weather.bin">weather.bin</a>,
+     <a href="firmware/status/status.bin">status.bin</a>,
+     <a href="firmware/couple/couple.bin">couple.bin</a>,
+     <a href="firmware/crypto/crypto.bin">crypto.bin</a> or
+     <a href="firmware/devops/devops.bin">devops.bin</a> — then with
      <a href="https://pypi.org/project/esptool/">esptool</a> installed (<code>pip install esptool</code>):</p>
   <pre>esptool --chip esp32s3 --port &lt;YOUR_PORT&gt; erase-flash
-esptool --chip esp32s3 --port &lt;YOUR_PORT&gt; write-flash 0x0 wordclock.bin</pre>
+esptool --chip esp32s3 --port &lt;YOUR_PORT&gt; write-flash 0x0 wordclock.bin   # or the file for your panel</pre>
   <p style="color:var(--muted);font-size:.92rem;">
     Port looks like <code>/dev/cu.usbmodem101</code> on macOS or <code>COM5</code> on Windows.
     The image is a full-flash image, so it starts at offset <code>0x0</code>.

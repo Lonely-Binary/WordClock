@@ -47,22 +47,22 @@ Once your firmware is flashed once over USB, we strongly recommend switching to 
 
 ## Five Panels, One Platform
 
-All five designs below share the same 11×10 hardware and the same panel design rules — only the word layout and data logic differ, so you can flash a different personality onto the same physical unit.
+The Word Clock and the five panels below share the same 11×10 hardware and the same panel design rules — only the faceplate's words and the firmware differ, so you can flash a different personality onto the same physical unit. All six install from the [web installer](https://lonely-binary.github.io/WordClock/). After setup, each of the five has a control page on your home network at `http://<setup-network-name>.local` (for example `http://weather-a3f2.local`).
 
 ### 🌤 Weather Station
 A desktop weather display built around one sentence: **"IT IS [weather]"**, with **"FEELS LIKE [warm/cool/dry]"** underneath, and an optional **TONIGHT / NOW** modifier for time of day.
 
 ### 💼 Status Board
-Your at-a-glance office status — busy, free, in a meeting, or on a call — plus a do-not-disturb level (**KNOCK / OK / ASK**) and a return-time hint (**SOON / LATER / BACK AT**).
+Your at-a-glance office status — busy, free, in a meeting, or on a call — plus a do-not-disturb level (**KNOCK / OK / ASK**) and a return-time hint (**SOON / LATER / BACK AT**). Set it from your phone, from a script (`/api/set?status=meeting`), or with button B. → [`StatusBoard/`](StatusBoard/)
 
 ### 💌 Couple Message Board
-A two-way message board for couples living apart during the day. One partner taps a message (**ON THE WAY**, **HOME SAFE**, **CALL ME NOW**...), and it lights up instantly on the other's panel — with a quick **OK / NO / MAYBE** reply built in.
+A two-way message board for couples living apart during the day. One partner taps a message (**ON THE WAY**, **HOME SAFE**, **CALL ME NOW**...), and it lights up instantly on the other's panel — with a quick **OK / NO / MAYBE** reply built in. Install it on both panels and give them the same pair code. → [`CoupleBoard/`](CoupleBoard/)
 
 ### 🚀 Crypto Word Clock
-Your portfolio's mood, spelled out in real time — **MOON / DUMP / ATH / DIP / REKT / WHALE** — plus meme-worthy friend-to-friend triggers like **TO THE MOON** and **BUY THE DIP**, with **LOL / RIP / SAME** replies.
+Your portfolio's mood, spelled out in real time — **MOON / DUMP / ATH / DIP / REKT / WHALE** — plus meme-worthy friend-to-friend triggers like **TO THE MOON** and **BUY THE DIP**, with **LOL / RIP / SAME** replies. Market words come from CoinGecko and the Fear & Greed index; friends share a group code. → [`CryptoClock/`](CryptoClock/)
 
 ### 🖥 DevOps Word Clock
-CI/CD results and server health on your desk — deploys, rollbacks, uptime, and resource alerts (**CPU / MEM / LOAD / DISK**), sharing common words like **HIGH / OK / DOWN** across multiple signals to keep the grid compact.
+CI/CD results and server health on your desk — deploys, rollbacks, uptime, and resource alerts (**CPU / MEM / LOAD / DISK**), sharing common words like **HIGH / OK / DOWN** across multiple signals to keep the grid compact. Your CI, cron jobs or Uptime Kuma tell it what happened, over HTTP or MQTT. → [`DevOpsClock/`](DevOpsClock/)
 
 ---
 
@@ -76,7 +76,9 @@ Plug the ESP32-S3 board into your computer with a USB-C data cable, open that pa
 
 ## Firmware & Libraries
 
-The Word Clock panel is the first of the five to ship. It's built with the [Arduino ESP32 core](https://github.com/espressif/arduino-esp32) (board: `esp32:esp32:esp32s3`), [FastLED](https://github.com/FastLED/FastLED) for the WS2812 grid, and [WiFiManager](https://github.com/tzapu/WiFiManager) for the on-device Wi-Fi/timezone setup portal. `ArduinoOTA` and `Preferences` ship with the ESP32 core.
+Every panel is built with the [Arduino ESP32 core](https://github.com/espressif/arduino-esp32) (board: `esp32:esp32:esp32s3`), [FastLED](https://github.com/FastLED/FastLED) for the WS2812 grid, and [WiFiManager](https://github.com/tzapu/WiFiManager) for the on-device Wi-Fi/timezone setup portal. `ArduinoOTA` and `Preferences` ship with the ESP32 core. The five newer panels also use [PubSubClient](https://github.com/knolleary/pubsubclient) (MQTT) and [ArduinoJson](https://arduinojson.org/), and share their setup, buttons and OTA code through the small [`libraries/LBPanel`](libraries/LBPanel/) library in this repo.
+
+**Building one of the five panels yourself:** copy `libraries/LBPanel` into your Arduino `libraries` folder (or pass `--libraries libraries` to `arduino-cli`), and select **Tools → Partition Scheme → Minimal SPIFFS (1.9MB APP with OTA)**. They don't fit the default partition table. Use the same setting for later OTA updates.
 
 - Want the finished, ready-to-flash sketch? See [`WordClock/`](WordClock/).
 - New to this hardware? Start with the shared ESP32-S3 foundations, then the Word-Clock-specific [`Tutorial/`](Tutorial/):
@@ -91,9 +93,11 @@ Learning the ESP32-S3 once carries over to every Blueprint in the series, so tho
 ## Repository
 
 - **[`WordClock/`](WordClock/)** — the finished Word Clock panel firmware: time-telling logic, self-serve Wi-Fi/timezone setup, colour modes, light effects and OTA.
+- **[`WeatherStation/`](WeatherStation/), [`StatusBoard/`](StatusBoard/), [`CoupleBoard/`](CoupleBoard/), [`CryptoClock/`](CryptoClock/), [`DevOpsClock/`](DevOpsClock/)** — the other five panels. Each sketch starts with its letter grid and the rules for what lights up.
+- **[`libraries/LBPanel/`](libraries/LBPanel/)** — the code those five share: setup portal, factory self-test, buttons, reset gesture, OTA, control page, MQTT and HTTPS helpers.
 - **[`Tutorial/`](Tutorial/)** — the Word-Clock-specific lessons: the 11×10 grid, the buttons, and the logic that turns a time into an English sentence. In both **Arduino/C++** and **MicroPython**.
-- **[`docs/`](docs/)** — the browser-based firmware installer published to GitHub Pages, plus the prebuilt image it serves.
-- **[`tools/`](tools/)** — `build-firmware.sh`, which produces that image. CI runs it automatically on every tagged release.
+- **[`docs/`](docs/)** — the browser-based firmware installer published to GitHub Pages, plus the prebuilt images it serves.
+- **[`tools/`](tools/)** — `build-firmware.sh`, which produces those images. CI runs it automatically on every tagged release.
 
 ---
 

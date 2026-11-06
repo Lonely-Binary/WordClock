@@ -1,6 +1,6 @@
 {
   "name": "Lonely Binary Word Clock",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "new_install_prompt_erase": false,
   "builds": [
     {

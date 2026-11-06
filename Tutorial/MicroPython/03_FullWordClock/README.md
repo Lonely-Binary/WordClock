@@ -47,7 +47,7 @@ The panel connects to WiFi, syncs time, then displays the current time as a lit 
 - Add back the COLOR/EFFECT buttons from Lesson 2 — you already know the debounce pattern.
 - Add automatic US daylight-saving switching to `UTC_OFFSET_SEC` — a good exercise now that you understand `local_time()`.
 - Compare this script with the [Arduino/C++ version](../../Arduino/03_FullWordClock/03_FullWordClock.ino) — same logic, two different languages.
-- Try designing your own panel layout/vocabulary — the [root README](../../../README.md) describes four other panel concepts (Weather Station, Status Board, Couple Message Board, Crypto/DevOps Word Clock) built on this same hardware and grid-rendering approach.
+- Try designing your own panel layout/vocabulary — the [root README](../../../README.md) describes five other panels (Weather Station, Status Board, Couple Message Board, Crypto and DevOps Word Clock) built on this same hardware and grid-rendering approach. Their finished firmware is Arduino-only.
 
 ---
 
