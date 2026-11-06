@@ -116,6 +116,25 @@ The five newer panels also share [`libraries/LBPanel`](libraries/LBPanel/), the 
 
 Release images are built by [`tools/build-firmware.sh`](tools/build-firmware.sh) with the exact library versions pinned in [the release workflow](.github/workflows/release-firmware.yml).
 
+## Changing it with an AI assistant
+
+Happy to let an AI write the code? This repo has a file just for it: **[`AGENTS.md`](AGENTS.md)**. It covers the pins, the LED order, the two USB ports, the grid coordinates, the build settings and the mistakes that are easy to make on this hardware.
+
+- **Coding tools that open the repo** (Cursor, GitHub Copilot, Codex and others) read `AGENTS.md` by themselves. Clone the repo, open it, and ask.
+- **A chat assistant in the browser:** paste in `AGENTS.md` and the sketch you want to change, then ask.
+
+Prompts to start from:
+
+> Read AGENTS.md first. In the Weather Station, I'd like HOT to start at 28 °C instead of 30 °C. Change it, compile it with the right settings, and update the README.
+
+> Read AGENTS.md first. On my Status Board I want button B to switch between just "Free" and "Busy". Make the change and tell me how to upload it over WiFi.
+
+> Read AGENTS.md first. I'm designing a new faceplate. Here is my 11×10 letter grid: (paste it). Write a new panel sketch based on StatusBoard that lights these words when I tap them on the control page, then check every word with tools/check-grid.py.
+
+> Read AGENTS.md first. My panel doesn't do what I expect. This is what I see, and this is the serial log at 115200: (paste). Help me find out why before changing any code.
+
+Whatever the assistant writes, the faceplate is printed: it can only light words whose letters are already on your grid. It also can't test on your board, so try the change yourself before relying on it.
+
 ## Learn how it works
 
 New to this hardware? Start with the shared ESP32-S3 foundations, then the Word-Clock-specific [`Tutorial/`](Tutorial/): the 11×10 grid, the buttons, and the logic that turns a time into an English sentence, in both Arduino/C++ and MicroPython.
@@ -134,7 +153,8 @@ Learning the ESP32-S3 once carries over to every Blueprint in the series, so tho
 - **[`libraries/LBPanel/`](libraries/LBPanel/)**: the code those five share
 - **[`Tutorial/`](Tutorial/)**: the step-by-step lessons
 - **[`docs/`](docs/)**: the browser installer on GitHub Pages, and the firmware images it serves
-- **[`tools/`](tools/)**: `build-firmware.sh`, which CI runs on every tagged release, and `render-faceplates.py`, which draws the faceplate pictures in `docs/images/`
+- **[`tools/`](tools/)**: `build-firmware.sh`, which CI runs on every tagged release, and `render-faceplates.py`, which draws the faceplate pictures in `docs/images/`, and `check-grid.py`, which checks every word's position on its faceplate
+- **[`AGENTS.md`](AGENTS.md)**: notes for AI coding assistants
 
 ---
 
