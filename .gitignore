@@ -20,3 +20,6 @@ Temporary Items
 
 # Private design assets — never publish
 /Internal/
+
+# Arduino CLI build output
+WordClock/build/

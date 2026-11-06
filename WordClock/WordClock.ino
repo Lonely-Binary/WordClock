@@ -8,10 +8,12 @@
  * WiFi & timezone setup (this firmware is flashed identically to every unit,
  * so WiFi/timezone can't be compile-time constants — they're set per-device
  * at first boot):
- *   - No saved WiFi -> a one-time factory QC self-test runs first (solid
- *     RED -> GREEN -> BLUE across the whole panel, 1s each at half
- *     brightness, to catch a dead/miswired WS2812 pixel before it ships —
- *     see runFactoryLedTest()), then the panel shows a low-power
+ *   - No saved WiFi -> a one-time factory QC self-test runs first (for each
+ *     of RED, GREEN, BLUE: a single lit pixel chases the whole strip so
+ *     every LED is seen switching on AND off on its own, then the whole
+ *     panel goes solid in that colour — catches a dead, stuck-on or
+ *     miswired WS2812 pixel before it ships, see runFactoryLedTest()),
+ *     then the panel shows a low-power
  *     confetti/sparkle animation (random single LEDs, fading — not a
  *     full-grid rainbow, to keep current draw down) and broadcasts its own
  *     hotspot, "WordClock-XXXX" (XXXX = 4 hex digits from the chip's efuse
@@ -725,23 +727,48 @@ bool isConfigured() {
   return prefs.getBool("cfgd", false);
 }
 
-// Factory QC self-test: solid RED -> GREEN -> BLUE across the whole panel,
-// 1 second each at half brightness, so a bad/dead/miswired WS2812 pixel is
-// easy to spot by eye before a unit ships. Only runs on a unit that has
-// never been configured (see isConfigured()), then falls through into the
-// normal setupIndicatorFrame() confetti + captive portal flow — it's a
-// prefix to that, not a replacement for it.
+// How long (ms) each pixel stays lit during the single-pixel chase, and how
+// long the whole panel stays solid after each chase.
+#define QC_CHASE_MS 25
+#define QC_SOLID_MS 800
+
+// Factory QC self-test, per colour RED -> GREEN -> BLUE:
+//   1. a single lit pixel runs the whole strip — pixel N lights, pixel N-1
+//      goes out, so exactly ONE LED is on at a time. That proves every
+//      pixel can be driven individually AND can be switched back off; a
+//      solid fill alone can't show a stuck-on pixel or a shorted neighbour.
+//   2. then the whole panel goes solid in that colour, so a dead pixel
+//      shows up as a hole.
+// Runs at half brightness, only on a unit that has never been configured
+// (see isConfigured()), then falls through into the normal
+// setupIndicatorFrame() confetti + captive portal flow — it's a prefix to
+// that, not a replacement for it.
 void runFactoryLedTest() {
   Serial.println("Factory LED test: unconfigured unit, running RGB self-test...");
   const CRGB testColors[] = { CRGB::Red, CRGB::Green, CRGB::Blue };
   const char* names[] = { "RED", "GREEN", "BLUE" };
 
   FastLED.setBrightness(128);   // ~50%, independent of the normal BRIGHTNESS setting
-  for (uint8_t i = 0; i < 3; i++) {
-    fillAll(testColors[i]);
+  for (uint8_t c = 0; c < 3; c++) {
+    Serial.printf("Factory LED test: %s chase (%d pixels, one at a time)\n",
+                  names[c], NUM_LEDS);
+
+    // Single-pixel chase: light one, show, clear it before the next one.
+    for (int i = 0; i < NUM_LEDS; i++) {
+      FastLED.clear();               // buffer only — previous pixel goes dark
+      leds[i] = testColors[c];
+      FastLED.show();
+      delay(QC_CHASE_MS);
+    }
+    FastLED.clear(true);             // last chase pixel off, panel fully dark
+    delay(QC_CHASE_MS);
+
+    Serial.printf("Factory LED test: %s solid\n", names[c]);
+    fillAll(testColors[c]);
     FastLED.show();
-    Serial.printf("Factory LED test: %s\n", names[i]);
-    delay(1000);
+    delay(QC_SOLID_MS);
+    FastLED.clear(true);
+    delay(QC_CHASE_MS);
   }
   FastLED.setBrightness(BRIGHTNESS);   // restore normal operating brightness
   FastLED.clear(true);
