@@ -8,6 +8,8 @@ Most smart displays shout numbers, graphs, and notifications at you. **Lonely Bi
 
 It's an 11×10 letter grid that looks like a plain wall of type until the words you actually need light up: the time, the weather outside, whether you're free or in a meeting, a quiet "HOME SAFE" from someone you love, or a red "DOWN" from a server you're watching at 2am. One piece of hardware, six very different lives. Pick the face that matches yours.
 
+<p align="center"><img src="docs/images/overview.svg" width="860" alt="The six faceplates, each lit with an example message"></p>
+
 **→ [Install the firmware from your browser](https://lonely-binary.github.io/WordClock/)**
 
 ---
@@ -132,7 +134,7 @@ Learning the ESP32-S3 once carries over to every Blueprint in the series, so tho
 - **[`libraries/LBPanel/`](libraries/LBPanel/)**: the code those five share
 - **[`Tutorial/`](Tutorial/)**: the step-by-step lessons
 - **[`docs/`](docs/)**: the browser installer on GitHub Pages, and the firmware images it serves
-- **[`tools/`](tools/)**: `build-firmware.sh`, which CI runs on every tagged release
+- **[`tools/`](tools/)**: `build-firmware.sh`, which CI runs on every tagged release, and `render-faceplates.py`, which draws the faceplate pictures in `docs/images/`
 
 ---
 

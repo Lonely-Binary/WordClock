@@ -6,6 +6,8 @@ A door sign for your desk: **I AM IN A MEETING … ASK … BACK AT … OFFICE**.
 
 **→ [Install it from your browser](https://lonely-binary.github.io/WordClock/)** (Chrome or Edge, press *Install Status Board*)
 
+<p align="center"><img src="../docs/images/status.svg" width="440" alt="Status Board faceplate lit: I AM IN A MEETING, ASK, OFFICE"></p>
+
 ## The faceplate
 
 ```

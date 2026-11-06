@@ -6,6 +6,8 @@ Your build pipeline and servers, on your desk: **CI FAIL**, **DEPLOY LIVE**, **D
 
 **→ [Install it from your browser](https://lonely-binary.github.io/WordClock/)** (Chrome or Edge, press *Install DevOps Word Clock*)
 
+<p align="center"><img src="../docs/images/devops.svg" width="440" alt="DevOps Word Clock faceplate lit: CI FAIL, ONLINE, CPU HIGH"></p>
+
 ## The faceplate
 
 ```

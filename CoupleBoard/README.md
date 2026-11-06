@@ -6,6 +6,8 @@ Two panels, one in each place. Tap **ON THE WAY** on your phone and it lights up
 
 **→ [Install it from your browser](https://lonely-binary.github.io/WordClock/)** (Chrome or Edge, press *Install Couple Message Board*, on both panels)
 
+<p align="center"><img src="../docs/images/couple.svg" width="440" alt="Couple Message Board faceplate lit: ON THE WAY, answered OK"></p>
+
 ## The faceplate
 
 ```
