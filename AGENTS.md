@@ -48,7 +48,11 @@ After adding or moving a word, run:
 python3 tools/check-grid.py WeatherStation/WeatherStation.ino
 ```
 
-It reads the grid from the sketch's header comment and prints the letters under every `LBWord`, flagging any that don't spell the word's name.
+It reads the grid from the sketch's header comment and prints the letters under every `LBWord`, flagging any that don't spell the word's name. To answer "can this panel show word X?" before writing any code:
+
+```bash
+python3 tools/check-grid.py --find RICH CryptoClock/CryptoClock.ino
+```
 
 Avoid word names that clash with Arduino or system macros. These have bitten this repo: `HIGH`, `BUSY`, `R_OK`, `W_OK`; `LOW`, `INPUT`, `OUTPUT` would too. The compiler error is usually "expected unqualified-id before numeric constant". Prefix the name (`W_HIGH`, `RP_OK`).
 
@@ -72,7 +76,7 @@ arduino-cli compile --fqbn esp32:esp32:esp32s3:CDCOnBoot=cdc,PartitionScheme=min
   --libraries libraries WeatherStation/WeatherStation.ino
 ```
 
-- **Use `PartitionScheme=min_spiffs` for the five LBPanel sketches.** They are about 1.25 MB, which is 95–98% of the default 1.25 MB app slot: they barely compile on the default scheme, and almost any addition pushes them over. The released images use Minimal SPIFFS (1.9 MB app, still with OTA), so a board flashed from the web installer has that partition table. In the Arduino IDE: Tools → Partition Scheme → *Minimal SPIFFS (1.9MB APP with OTA)*. An OTA update must use the same scheme the board was flashed with.
+- **Use `PartitionScheme=min_spiffs` for the five LBPanel sketches.** They are 1,245,000–1,290,000 bytes, against 1,310,720 bytes (95–98%) for the default app slot and 1,966,080 for Minimal SPIFFS: they barely compile on the default scheme, and almost any addition pushes them over. The released images use Minimal SPIFFS (1.9 MB app, still with OTA), so a board flashed from the web installer has that partition table. In the Arduino IDE: Tools → Partition Scheme → *Minimal SPIFFS (1.9MB APP with OTA)*. An OTA update must use the same scheme the board was flashed with.
 - `CDCOnBoot=cdc` sends `Serial` to the USB port, so `Serial.printf` output shows up in the serial monitor at 115200.
 - Arduino IDE users need `libraries/LBPanel` copied into their Arduino `libraries` folder.
 - Release images: `tools/build-firmware.sh <version> [panel…]` builds full-flash images into `docs/firmware/<panel>/`. CI runs it when a `v*` tag is pushed. Don't hand-edit `docs/firmware/`.
@@ -107,6 +111,7 @@ Rules that keep it working:
 - **Remembering state** that isn't a user setting (the Status Board's current status, for example): `lb::setParam("key", value)` / `lb::param("key")` work for any key, listed in `PARAMS` or not. Flash wears out, so save when the value changes, not every loop.
 - **Buttons:** `lb::onButtons(handlerA, handlerB)`. Return `true` if you handled the press, `false` to fall back to the default (A = next colour, B = random effect).
 - **MQTT:** `lb::mqttBegin(handler)`, then `lb::mqttSubscribe(topic)` in `setup()`. Topics live under `lonelybinary/<panel>/...` on the public broker `broker.emqx.io`. Anything secret (a pair code, a channel key) goes in the topic, because the broker is public.
+- **Thresholds come in pairs.** Words driven by a number switch on at one value and off at another (MOON on at +5%, off again inside ±3%), so a value hovering at the edge doesn't make the word flicker. When you move a trigger, move its off point too and keep a gap between them; say which off point you chose.
 - **Arduino auto-generates function prototypes** at the top of the sketch. A function that takes or returns a struct you define must have that struct declared before the first function in the file, or the build fails with "'X' was not declared in this scope".
 
 The full API, with comments, is in `libraries/LBPanel/src/LBPanel.h`. The simplest complete example is `StatusBoard/StatusBoard.ino`; for fetching from an API, copy `WeatherStation/`; for MQTT, copy `CoupleBoard/`.
@@ -126,5 +131,6 @@ There are no unit tests and usually no board attached. Before saying a change is
 
 1. It compiles with the exact command above for that panel, with no new warnings from your code.
 2. `python3 tools/check-grid.py <sketch>` shows no mismatches, if you touched words.
-3. If you changed what a panel shows or how it's controlled, update that panel's `README.md`, and the header comment in the sketch, to match.
-4. Say plainly that it hasn't been tested on hardware, if it hasn't.
+3. If you changed what a panel shows or how it's controlled, update everything that describes it: the header comment in the sketch, that panel's `README.md`, and, if the change is big enough to mention, the panel's row in the root `README.md` table and its card in `docs/index.html`.
+4. Tell the user how to put it on the board: USB from the dev board's port, or OTA, **with the same partition scheme as above**. A board flashed from the web installer already has Minimal SPIFFS (Word Clock: default).
+5. Say plainly that it hasn't been tested on hardware, if it hasn't.
