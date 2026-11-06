@@ -6,6 +6,8 @@ The weather outside, as one sentence: **IT IS CLOUDY … NOW … FEELS LIKE COOL
 
 **→ [Install it from your browser](https://lonely-binary.github.io/WordClock/)** (Chrome or Edge, press *Install Weather Station*)
 
+<p align="center"><img src="../docs/images/weather.svg" width="440" alt="Weather Station faceplate lit: IT IS CLOUDY, BREEZY, NOW, FEELS LIKE COOL"></p>
+
 ## The faceplate
 
 ```

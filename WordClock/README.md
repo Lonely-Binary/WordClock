@@ -6,6 +6,8 @@ The finished "tells the time in English sentences" panel — `IT IS <hour> PAST/
 
 This is the exact firmware flashed onto every unit before it ships, so it doesn't hardcode any one buyer's WiFi network or timezone — instead it walks you through a one-time setup the first time it boots.
 
+<p align="center"><img src="../docs/images/wordclock.svg" width="440" alt="Word Clock faceplate lit: IT IS TWENTY PAST FOUR PM, two minute dots"></p>
+
 ## Just want it installed?
 
 You don't need any of the below. **[Open the web installer](https://lonely-binary.github.io/WordClock/)** in Chrome or Edge, plug in the board, press Install. The rest of this page is for building it yourself from source.

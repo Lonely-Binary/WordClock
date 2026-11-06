@@ -8,6 +8,8 @@ Not financial advice. It's a lamp.
 
 **→ [Install it from your browser](https://lonely-binary.github.io/WordClock/)** (Chrome or Edge, press *Install Crypto Word Clock*)
 
+<p align="center"><img src="../docs/images/crypto.svg" width="440" alt="Crypto Word Clock faceplate lit: MOON, ATH, FOMO, TO THE MOON, LOL"></p>
+
 ## The faceplate
 
 ```
