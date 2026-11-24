@@ -173,7 +173,7 @@ The thing you buy is the reason to start. What you keep is knowing how to build 
 | No. | Blueprint | Status |
 |---|---|---|
 | **01** | **Word Clock**: an 11×10 word panel with six faces | ✅ This repo |
-| 02 | — | In development |
+| **02** | **[TinkerPad](https://github.com/Lonely-Binary/TinkerPad)**: 16 lit keys, a microphone and a speaker; games, music and a voice message board | ✅ Available |
 
 ---
 
